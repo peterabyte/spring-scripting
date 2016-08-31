@@ -1,0 +1,89 @@
+group 'learnerbot'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def junitVersion = '4.11'
+def mockitoVersion = '1.9.5'
+def assertjVersion = '2.0.0'
+def log4jVersion = '2.5'
+def springBootVersion = '1.3.7.RELEASE'
+
+def springBootUserName = 'user'
+def springBootPassword = '1234'
+def serverPort = '11001'
+def debugPort = '11005'
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath(
+                "org.springframework.boot:spring-boot-gradle-plugin:1.3.7.RELEASE"
+        )
+    }
+}
+
+apply plugin: 'spring-boot'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://repo.spring.io/libs-snapshot'
+    }
+}
+
+configurations {
+    compile.exclude module: "spring-boot-starter-logging"
+}
+
+dependencies {
+    testCompile ("junit:junit:$junitVersion")
+    testCompile ("org.mockito:mockito-core:$mockitoVersion")
+    testCompile ("org.assertj:assertj-core:$assertjVersion")
+    testCompile ("org.assertj:assertj-core:$assertjVersion")
+    testCompile ("org.apache.logging.log4j:log4j-core:$log4jVersion")
+    compile ("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    compile ("org.springframework.boot:spring-boot-starter-log4j:$springBootVersion")
+    compile ("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
+    compile ("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
+    compile ("org.springframework.boot:spring-boot-devtools:$springBootVersion")
+}
+
+jar {
+    baseName = "learnerbot-spring-dynamic-language-support"
+    version =  "1.0.0"
+    manifest {
+        attributes("Main-Class": "hu.learnerbot.dynamiclang.Main",
+                "Manifest-Version": version,
+                "Created-By": "LearnerBot")
+    }
+}
+
+test {
+    reports {
+        html.enabled = false
+        junitXml.enabled = true
+    }
+
+    testLogging {
+        events "PASSED", "STARTED", "FAILED", "SKIPPED"
+        exceptionFormat = "full"
+    }
+}
+
+bootRun {
+    addResources = true
+    jvmArgs = [
+        "-Dserver.port=$serverPort",
+        "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=$debugPort",
+        "-Dsecurity.user.name=$springBootUserName",
+        "-Dsecurity.user.password=$springBootPassword"
+    ]
+}

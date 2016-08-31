@@ -1,0 +1,12 @@
+body {
+    margin: 0 1em;
+    min-width: 20em;
+}
+
+#sourceCode, #outputContainer {
+    font-family: monospace;
+}
+
+#outputContainer {
+    padding: 10px;
+}

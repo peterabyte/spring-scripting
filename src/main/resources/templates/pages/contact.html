@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/header :: head(pageTitle='Contact')">
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"></div>
+        <h1>Contact</h1>
+        <div class="alert alert-info" role="alert">Click <b><a th:href="${contactLink}" target="_blank">here</a></b> to visit the project's source.</div>
+    </body>
+</html>
