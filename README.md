@@ -20,6 +20,8 @@ This is a simple web application based on *Spring Boot* to understand the basics
 
 *[Thymeleaf](http://www.thymeleaf.org/)*: Thymeleaf is a modern server-side Java template engine for both web and standalone environments.
 
+*[Ace](https://ace.c9.io/)*: Ace is an embeddable code editor written in JavaScript.
+
 ### Dev dependencies
 
 *[gradle](https://gradle.org/)*: Gradle is an open source build automation system that builds upon the concepts of Apache Ant and Apache Maven and introduces a Groovy-based domain-specific language (DSL) instead of the XML form used by Apache Maven of declaring the project configuration.
