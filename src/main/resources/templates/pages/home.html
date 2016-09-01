@@ -9,9 +9,10 @@
         <div class="panel panel-primary">
             <div class="panel-heading"><h4>Code</h4></div>
             <div class="panel-body">
-                <form th:action="@{/}" method="POST" role="form">
+                <div id="editor" th:text="${sourceCode}"></div>
+                <form id="codeForm" th:action="@{/}" method="POST" role="form">
                     <div class="form-group">
-                        <textarea rows="15" id="sourceCode" name="sourceCode" class="form-control" th:text="${sourceCode}"></textarea>
+                        <input type="hidden" id="sourceCode" name="sourceCode" class="form-control" th:value="${sourceCode}" />
                     </div>
                     <div class="btn-group">
                         <button class="btn btn-primary" type="submit">Submit</button>
@@ -23,5 +24,21 @@
                 <div id="outputContainer" th:if="${output != null}" th:text="${output != null}? ${output}" th:classappend="${error != null and error}? 'bg-danger' : 'bg-success'"></div>
             </div>
         </div>
+        <script type="text/javascript">
+            (function() {
+                var editor = ace.edit('editor');
+                editor.setTheme("ace/theme/chrome");
+                editor.getSession().setOptions({
+                    mode: "ace/mode/groovy",
+                    tabSize: 2
+                });
+            })();
+            (function() {
+                $('#codeForm').submit(function(){
+                    var editor = ace.edit('editor');
+                    $('#sourceCode').val(editor.getValue());
+                });
+            })();
+        </script>
     </body>
 </html>

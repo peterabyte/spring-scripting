@@ -3,10 +3,11 @@ body {
     min-width: 20em;
 }
 
-#sourceCode, #outputContainer {
-    font-family: monospace;
+#editor {
+    height: 300px;
 }
 
 #outputContainer {
+    font-family: monospace;
     padding: 10px;
 }
