@@ -1,72 +1,49 @@
-group 'learnerbot'
-version '1.0-SNAPSHOT'
+plugins {
+    id 'org.springframework.boot' version '2.1.8.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
 
-apply plugin: 'java'
-
+group 'com.peterabyte'
+version '1.0.0-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 def junitVersion = '4.11'
 def mockitoVersion = '1.9.5'
 def assertjVersion = '2.0.0'
-def log4jVersion = '2.5'
-def springBootVersion = '1.3.7.RELEASE'
+def springBootVersion = '2.0.1.RELEASE'
+def springVersion = '5.1.9.RELEASE'
 
 def springBootUserName = 'user'
 def springBootPassword = '1234'
 def serverPort = '11001'
 def debugPort = '11005'
 
-buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath(
-                "org.springframework.boot:spring-boot-gradle-plugin:1.3.7.RELEASE"
-        )
-    }
-}
-
-apply plugin: 'spring-boot'
-
 repositories {
     mavenCentral()
-    maven {
-        url 'http://repo.spring.io/libs-snapshot'
-    }
 }
 
 configurations {
-    compile.exclude module: "spring-boot-starter-logging"
-}
-
-dependencies {
-    testCompile ("junit:junit:$junitVersion")
-    testCompile ("org.mockito:mockito-core:$mockitoVersion")
-    testCompile ("org.assertj:assertj-core:$assertjVersion")
-    testCompile ("org.assertj:assertj-core:$assertjVersion")
-    testCompile ("org.apache.logging.log4j:log4j-core:$log4jVersion")
-    compile ("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    compile ("org.springframework.boot:spring-boot-starter-log4j:$springBootVersion")
-    compile ("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
-    compile ("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
-    compile ("org.springframework.boot:spring-boot-devtools:$springBootVersion")
-}
-
-jar {
-    baseName = "learnerbot-spring-dynamic-language-support"
-    version =  "1.0.0"
-    manifest {
-        attributes("Main-Class": "hu.learnerbot.dynamiclang.Main",
-                "Manifest-Version": version,
-                "Created-By": "LearnerBot")
+    implementation {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     }
 }
 
+dependencies {
+    testImplementation ("junit:junit:$junitVersion")
+    testImplementation ("org.mockito:mockito-core:$mockitoVersion")
+    testImplementation ("org.assertj:assertj-core:$assertjVersion")
+    implementation ("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    implementation ("org.springframework.boot:spring-boot-starter-log4j2:$springBootVersion")
+    implementation ("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
+    implementation ("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
+    implementation ("org.springframework.integration:spring-integration-groovy:$springVersion")
+}
+
 test {
+    useJUnit()
+
     reports {
         html.enabled = false
         junitXml.enabled = true
@@ -79,7 +56,7 @@ test {
 }
 
 bootRun {
-    addResources = true
+    sourceResources sourceSets.main
     jvmArgs = [
         "-Dserver.port=$serverPort",
         "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=$debugPort",
