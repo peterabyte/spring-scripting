@@ -10,8 +10,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col">
-            <h3>Groovy code</h3>
-            <div id="editor" th:text="${sourceCode}"></div>
+            <h3><i class="far fa-question-circle"></i> <b>Help</b></h3>
+            <p>
+                <div>The groovy code should implement the <code>getMessage</code> method of <code>hu.learnerbot.dynamiclang.scripting.Messenger</code>.</div>
+                <div>The output will be the result of <code>getMessage</code> or the error thrown when executing the script.</div>
+            </p>
+            <h3><i class="far fa-file-code"></i> <b>Source Code</b></h3>
+            <div id="editor" class="border rounded" th:text="${sourceCode}"></div>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -28,8 +33,10 @@
     </div>
     <div class="row justify-content-center">
         <div class="col">
-            <div><b>Output:</b></div>
-            <div id="outputContainer" th:if="${output != null}" th:text="${output != null}? ${output}" th:classappend="${error != null and error}? 'bg-danger' : 'bg-success'"></div>
+            <h3><span th:if="${output != null}"><i th:classappend="${error != null and error}? 'fas fa-bug' : 'fas fa-check'"></i> </span><b>Output</b></h3>
+            <div class="border rounded p-1" th:classappend="${output != null and error != null and error}? 'border-danger'">
+                <samp th:text="${output != null}? ${output}: 'Run it...'"></samp>
+            </div>
         </div>
     </div>
 </div>

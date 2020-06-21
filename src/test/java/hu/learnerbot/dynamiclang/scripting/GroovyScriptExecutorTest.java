@@ -11,6 +11,7 @@ public class GroovyScriptExecutorTest {
             "class GroovyMessenger implements Messenger { " +
             "public String getMessage() { return \"hello\"; } " +
             "}";
+    private static final String INVALID_SOURCE_CODE = "this is an invalid source code";
 
     private ScriptExecutor scriptExecutor;
 
@@ -20,8 +21,13 @@ public class GroovyScriptExecutorTest {
     }
 
     @Test
-    public void script_executor_should_return_result() {
+    public void script_executor_should_return_result_when_source_code_is_valid() {
         Object result = scriptExecutor.execute(DEFAULT_SOURCE_CODE);
         assertThat(result).isEqualTo("hello");
+    }
+
+    @Test(expected = ScriptExecutionException.class)
+    public void script_executor_should_throw_exception_when_source_code_is_invalid() {
+        scriptExecutor.execute(INVALID_SOURCE_CODE);
     }
 }

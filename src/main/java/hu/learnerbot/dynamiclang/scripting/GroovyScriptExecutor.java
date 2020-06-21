@@ -30,7 +30,7 @@ public class GroovyScriptExecutor implements ScriptExecutor {
             Object result = new GroovyScriptFactory("classpath").getScriptedObject(scriptSource, Messenger.class);
             return result != null ? ((Messenger) result).getMessage() : null;
         } catch (Exception ex) {
-            throw new ScriptExecutionException("Failed to execute groovy script '%s'!", ex);
+            throw new ScriptExecutionException(String.format("Failed to execute groovy script '%s'! %s", sourceCode, ex.getMessage()), ex);
         }
     }
 }
