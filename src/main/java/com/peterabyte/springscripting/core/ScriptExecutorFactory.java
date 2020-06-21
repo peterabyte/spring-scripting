@@ -1,4 +1,4 @@
-package hu.learnerbot.dynamiclang.scripting;
+package com.peterabyte.springscripting.core;
 
 public interface ScriptExecutorFactory {
     ScriptExecutor create(ScriptType type);

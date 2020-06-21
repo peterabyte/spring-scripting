@@ -1,4 +1,4 @@
-package hu.learnerbot.dynamiclang.scripting;
+package com.peterabyte.springscripting.core;
 
 import org.springframework.scripting.ScriptSource;
 import org.springframework.scripting.groovy.GroovyScriptFactory;

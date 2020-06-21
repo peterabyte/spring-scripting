@@ -1,4 +1,4 @@
-package hu.learnerbot.dynamiclang.scripting;
+package com.peterabyte.springscripting.core;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,8 +6,8 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class GroovyScriptExecutorTest {
-    private static final String DEFAULT_SOURCE_CODE = "package hu.learnerbot.dynamiclang.scripting; " +
-            "import hu.learnerbot.dynamiclang.scripting.Messenger; " +
+    private static final String DEFAULT_SOURCE_CODE = "package com.peterabyte.springscripting.core; " +
+            "import com.peterabyte.springscripting.core.Messenger; " +
             "class GroovyMessenger implements Messenger { " +
             "public String getMessage() { return \"hello\"; } " +
             "}";
